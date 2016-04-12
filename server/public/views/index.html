@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="assignmentApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Assignments</title>
+    <script src="/vendor/angular/angular.min.js"></script>
+    <script src="/assets/scripts/client.min.js"></script>
+    <link rel="stylesheet" href="/assets/css/style.css" />
+  </head>
+  <body ng-controller="assignmentController">
+      <h1>Enter a new assignment</h1>
+
+      <!-- Form to add assignments -->
+      <form>
+        <input type="number" ng-model="assignment.number" placeholder="Assignment Number"/>
+        <input type="text" ng-model="assignment.name" placeholder="Student Name" />
+        <input type="number" ng-model="assignment.score" placeholder="Score"  />
+        <input type="submit" ng-click="addAssignment()"/>
+      </form>
+
+      <hr />
+      <!-- Search form -->
+      <section class="search">
+        <input type="text" ng-model="id" placeholder="Search by assignment ID" />
+        <button ng-click="getAssignments(id)">Find assignment</button>
+      </section>
+
+      <!-- Search results -->
+      <section class="searchResults" ng-show="hideList">
+        <div class="assignments">
+          Assignment Number: {{searchResult.assignment_number}} <br />
+          Score: {{searchResult.score}} <br />
+          Student Name: {{searchResult.student_name}} <br />
+          Date Completed: {{searchResult.date_completed}} <br />
+          <button class="center" ng-click="deleteAssignment(searchResult)">Delete</button>
+        </div>
+        <button class="center" ng-click="hideList = false">Clear search</button>
+      </section>
+
+      <!-- Assignment List -->
+      <section class="assignments" ng-show="!hideList" ng-repeat="item in assignmentList">
+        <div style="margin: 20px;">
+          Assignment Number: {{item.assignment_number}} <br />
+          Score: {{item.score}} <br />
+          Student Name: {{item.student_name}} <br />
+          Date Completed: {{item.date_completed}}
+        </div>
+        <button class="center" ng-click="deleteAssignment(item)">Delete</button>
+      </section>
+  </body>
+</html>
